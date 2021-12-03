@@ -17,7 +17,7 @@ public class Car {
     @Column
     private String model;
 
-    @OneToOne(mappedBy = "car", cascade = CascadeType.ALL)
+    @OneToOne
     private User user;
 
     public Car() {}
