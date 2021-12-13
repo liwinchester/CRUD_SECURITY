@@ -11,52 +11,38 @@ public class User {
    private Long id;
 
    @Column(name = "name")
-   private String firstName;
+   private String name;
 
-   @Column(name = "last_name")
+   @Column(name = "lastName")
    private String lastName;
 
-   @Column(name = "email")
-   private String email;
-
-   @OneToOne(mappedBy = "user")
-   @JoinColumn(name = "car_id", referencedColumnName = "id")
-   private Car car;
+   @Column(name = "userName")
+   private String userName;
 
    public User() {
 
    }
 
-   public Car getCar() {
-      return car;
-   }
-
-   public void setCar(Car car) {
-      this.car = car;
-   }
-
-   public User(String user1, String lastname1, String s, Car car) {}
-   
-   public User(String firstName, String lastName, String email) {
-      this.firstName = firstName;
+   public User(String name, String lastName, String userName) {
+      this.name = name;
       this.lastName = lastName;
-      this.email = email;
+      this.userName = userName;
    }
 
-   public Long getId() {
+   public long getId() {
       return id;
    }
 
-   public void setId(Long id) {
+   public void setId(long id) {
       this.id = id;
    }
 
-   public String getFirstName() {
-      return firstName;
+   public String getName() {
+      return name;
    }
 
-   public void setFirstName(String firstName) {
-      this.firstName = firstName;
+   public void setName(String name) {
+      this.name = name;
    }
 
    public String getLastName() {
@@ -67,11 +53,21 @@ public class User {
       this.lastName = lastName;
    }
 
-   public String getEmail() {
-      return email;
+   public String getUserName() {
+      return userName;
    }
 
-   public void setEmail(String email) {
-      this.email = email;
+   public void setUserName(String userName) {
+      this.userName = userName;
+   }
+
+   @Override
+   public String toString() {
+      return "User{" +
+              "id=" + id +
+              ", name='" + name + '\'' +
+              ", lastName='" + lastName + '\'' +
+              ", userName='" + userName + '\'' +
+              '}';
    }
 }

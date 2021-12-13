@@ -1,39 +1,51 @@
 package hiber.dao;
 
-import hiber.model.Car;
 import hiber.model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
 public class UserDaoImp implements UserDao {
 
-   @Autowired
-   private SessionFactory sessionFactory;
+   @PersistenceContext
+   private EntityManager em;
 
+   @Transactional
    @Override
-   public void add(User user) {
-      sessionFactory.getCurrentSession().saveOrUpdate(user);
+   public void addUser(User user) {
+      em.persist(user);
    }
 
+   @Transactional
    @Override
-   @SuppressWarnings("unchecked")
-   public List<User> listUsers() {
-      TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
-      return query.getResultList();
+   public void updateUser(User user) {
+      em.merge(user);
    }
 
+   @Transactional
    @Override
-   public User getUserByCar(String model, int series) {
-      Query query = sessionFactory.getCurrentSession().createQuery
-                      ("SELECT u FROM Car car JOIN car.user u WHERE car.model=:model AND car.series=:series", User.class)
-              .setParameter("model", model)
-              .setParameter("series", series);
-      return (User) query.getResultList().stream().findFirst().orElse(null);
+   public void removeUser(long id) {
+      User user = (User) em.find(User.class, id);
+      em.remove(user);
+   }
+
+   @Transactional
+   @Override
+   public User getUserById(long id) {
+      return (User) em.find(User.class, id);
+   }
+
+   @Transactional
+   @Override
+   public List<User> listUser() {
+      return em.createQuery("select u from User u").getResultList();
    }
 }
