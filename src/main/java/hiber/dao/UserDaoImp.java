@@ -18,26 +18,22 @@ public class UserDaoImp implements UserDao {
    @PersistenceContext
    private EntityManager em;
 
-   @Transactional
    @Override
    public void addUser(User user) {
       em.persist(user);
    }
 
-   @Transactional
    @Override
    public void updateUser(User user) {
       em.merge(user);
    }
 
-   @Transactional
    @Override
    public void removeUser(long id) {
       User user = (User) em.find(User.class, id);
       em.remove(user);
    }
 
-   @Transactional
    @Override
    public User getUserById(long id) {
       return (User) em.find(User.class, id);
