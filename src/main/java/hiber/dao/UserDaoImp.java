@@ -39,7 +39,6 @@ public class UserDaoImp implements UserDao {
       return (User) em.find(User.class, id);
    }
 
-   @Transactional
    @Override
    public List<User> listUser() {
       return em.createQuery("select u from User u").getResultList();
