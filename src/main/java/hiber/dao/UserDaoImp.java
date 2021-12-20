@@ -1,5 +1,6 @@
 package hiber.dao;
 
+import hiber.model.Role;
 import hiber.model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -42,5 +43,10 @@ public class UserDaoImp implements UserDao {
    @Override
    public List<User> listUser() {
       return em.createQuery("select u from User u").getResultList();
+   }
+
+   @Override
+   public List<Role> listRoles() {
+      return em.createQuery("FROM Role", Role.class).getResultList();
    }
 }

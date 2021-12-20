@@ -1,5 +1,6 @@
 package hiber.service;
 
+import hiber.model.Role;
 import hiber.model.User;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface UserService {
     User getUserById(long id);
 
     List<User> listUser();
+
+    List<Role> listRoles();
 }

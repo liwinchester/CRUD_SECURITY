@@ -1,6 +1,7 @@
 package hiber.service;
 
 import hiber.dao.UserDao;
+import hiber.model.Role;
 import hiber.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,11 @@ public class UserServiceImp implements UserService {
    @Override
    public List<User> listUser() {
       return userDao.listUser();
+   }
+
+   @Transactional
+   @Override
+   public List<Role> listRoles() {
+      return userDao.listRoles();
    }
 }
