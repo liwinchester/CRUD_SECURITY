@@ -1,19 +1,19 @@
 package hiber.controller;
 
 
-import hiber.dto.RolesDTO;
 import hiber.model.Role;
 import hiber.model.User;
+import hiber.service.UserDetailsServiceImpl;
 import hiber.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
+
 
 
 @Controller
@@ -22,13 +22,17 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-
-	@GetMapping("/")
+	@GetMapping("/admin")
 	public String listUsers(Model model){
 		model.addAttribute("listUsers", userService.listUser());
 		return "users";
 	}
-
+	@GetMapping("/user")
+	public String userInfo(Model model){
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("userInfo", user);
+		return "user";
+	}
 
 	@GetMapping("/add")
 	public String create(Model model){
@@ -44,12 +48,12 @@ public class UserController {
 		}
 		user.setRoles(rolesSet);
 		userService.addUser(user);
-		return "redirect:/";
+		return "redirect:/admin";
 	}
 	@GetMapping("/remove/{id}")
 	public String removeUser(@PathVariable("id") long id){
 		this.userService.removeUser(id);
-		return "redirect:/";
+		return "redirect:/admin";
 	}
 	@GetMapping("/edit/{id}")
 	public String update(@PathVariable("id") long id, Model model){
@@ -60,9 +64,14 @@ public class UserController {
 		return "edit";
 	}
 	@PostMapping("/update")
-	public String updateUser(@ModelAttribute("user") User user){
+	public String updateUser(@ModelAttribute("user") User user, String[] roleNames){
+		Set<Role> rolesSet = new HashSet<>();
+		for (String name: roleNames) {
+			rolesSet.add(userService.getRoleByName(name));
+		}
+		user.setRoles(rolesSet);
 		userService.updateUser(user);
-		return "redirect:/";
+		return "redirect:/admin";
 	}
 
 }

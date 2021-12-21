@@ -18,5 +18,7 @@ public interface UserService {
 
     List<Role> listRoles();
 
+    User getUserByName(String userName);
+
     Role getRoleByName(String name);
 }

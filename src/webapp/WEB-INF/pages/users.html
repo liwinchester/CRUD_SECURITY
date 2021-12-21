@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-    <title>User</title>
+    <title>Admin Panel</title>
 </head>
 
 <body>
@@ -49,6 +49,11 @@
                     </td>
                 </tr>
             </tbody>
+            <a href="javascript: document.logoutForm.submit()" role="menuitem"> Exit</a>
+
+            <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                <input hidden type="submit" value="Sign Out"/>
+            </form>
         </table>
     </div>
 </body>

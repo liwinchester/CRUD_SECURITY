@@ -2,15 +2,10 @@ package hiber.dao;
 
 import hiber.model.Role;
 import hiber.model.User;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
@@ -51,8 +46,8 @@ public class UserDaoImp implements UserDao {
    }
 
    @Override
-   public User getUserByName(String name) {
-      return em.createQuery("select u from User u where u.userName=:username", User.class).setParameter("username", name).getSingleResult();
+   public User getUserByName(String userName) {
+      return em.createQuery("select u from User u where u.userName=:username", User.class).setParameter("username", userName).getSingleResult();
    }
 
    @Override

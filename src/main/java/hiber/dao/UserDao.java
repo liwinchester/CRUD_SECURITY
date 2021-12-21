@@ -18,7 +18,7 @@ public interface UserDao {
 
    List<Role> listRoles();
 
-   User getUserByName(String name);
+   User getUserByName(String userName);
 
    Role getRoleByName(String name);
 }
