@@ -37,7 +37,12 @@ public class UserController {
 		return "add";
 	}
 	@PostMapping("/save")
-	public String createUser(@ModelAttribute("user") User user){
+	public String createUser(@ModelAttribute("user") User user, String[] roleNames){
+		Set<Role> rolesSet = new HashSet<>();
+		for (String name: roleNames) {
+			rolesSet.add(userService.getRoleByName(name));
+		}
+		user.setRoles(rolesSet);
 		userService.addUser(user);
 		return "redirect:/";
 	}
@@ -50,6 +55,8 @@ public class UserController {
 	public String update(@PathVariable("id") long id, Model model){
 		User user =  userService.getUserById(id);
 		model.addAttribute("user", user);
+		model.addAttribute("selectedRoles", user.getRoles());
+		model.addAttribute("existingRoles", userService.listRoles());
 		return "edit";
 	}
 	@PostMapping("/update")

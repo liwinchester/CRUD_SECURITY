@@ -31,9 +31,7 @@
                     <td th:text="${user.lastName}">LastName</td>
                     <td th:text="${user.userName}">UserName</td>
                     <td th:text="${user.password}">Password</td>
-                    <td th:each="role: ${user.roles}">
-                        <p th:text="${role.role}">Roles</p>
-                    </td>
+                    <td th:text="${user.rolesForTable}">Roles</td>
                     <td>
                         <form action="#" th:action="@{/edit/} + ${{user.id}}" method="get">
                             <button th:id="'table_entry_childs_button_' + ${user.id}" type="submit">

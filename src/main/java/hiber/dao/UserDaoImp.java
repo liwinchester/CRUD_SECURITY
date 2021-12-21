@@ -49,4 +49,14 @@ public class UserDaoImp implements UserDao {
    public List<Role> listRoles() {
       return em.createQuery("FROM Role", Role.class).getResultList();
    }
+
+   @Override
+   public User getUserByName(String name) {
+      return em.createQuery("select u from User u where u.userName=:username", User.class).setParameter("username", name).getSingleResult();
+   }
+
+   @Override
+   public Role getRoleByName(String name) {
+      return em.createQuery("select r from Role r where r.role=:rolename", Role.class).setParameter("rolename", name).getSingleResult();
+   }
 }

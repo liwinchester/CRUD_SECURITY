@@ -31,10 +31,10 @@
             <tr>
                 <td>Roles:</td>
                 <td>
-                    <select class="form-control" name="roles" multiple="multiple">
+                    <select multiple th:name="roleNames" th:id="roles" required>
                         <option th:each="role : ${userRoles}"
-                                th:value="${role.id}"
-                                th:text="${role.role}"></option>
+                                th:value="${role.role}"
+                                th:text="${role.role}"/>
                     </select>
                 </td>
             </tr>
